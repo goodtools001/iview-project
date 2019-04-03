@@ -6,11 +6,12 @@ import Util from './libs/util';
 import App from './app.vue';
 import 'iview/dist/styles/iview.css';
 import  axios from '../node_modules/axios/dist/axios.min';
+import echarts from '../node_modules/echarts/dist/echarts.min'
 
 Vue.use(VueRouter);
 Vue.use(iView);
 Vue.prototype.$http = axios;
-
+Vue.prototype.$echarts = echarts
 // 路由配置
 const RouterConfig = {
     mode: 'history',

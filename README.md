@@ -25,5 +25,8 @@ npm run build
 ####2、部署
 将dist目录和index-prod.html拷贝到项目的static目录下，并将index-prod.html 重命名为index.html
 
+
+##安装echart
+npm install echarts --save
  
 
