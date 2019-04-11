@@ -7,11 +7,21 @@ import App from './app.vue';
 import 'iview/dist/styles/iview.css';
 import  axios from '../node_modules/axios/dist/axios.min';
 import echarts from '../node_modules/echarts/dist/echarts.min'
+import store from './store'//引入store
+
+/*new Vue({
+    el: '#app',
+    router,
+    store,//使用store
+    template: '<App/>',
+    components: { App }
+})*/
 
 Vue.use(VueRouter);
 Vue.use(iView);
 Vue.prototype.$http = axios;
-Vue.prototype.$echarts = echarts
+Vue.prototype.$echarts = echarts;
+Vue.prototype.$store = store;
 // 路由配置
 const RouterConfig = {
     mode: 'history',

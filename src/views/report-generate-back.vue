@@ -65,7 +65,7 @@
     import ReportImage from "./component/report-image";
 
     export default {
-        name: "create-report",
+        name: "report-generate",
         components: {ReportImage, ReportButton, ReportRadio, ReportTime, ReportSelect}
     }
 </script>

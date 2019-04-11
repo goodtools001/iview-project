@@ -1,8 +1,8 @@
 <template>
     <div>
-        <Button :size="buttonSize" type="primary">预览报表</Button>
         <Button :size="buttonSize" type="primary" @click="postImage">生成报表</Button>
-        <div id="reportImages">加载报表中的图片（隐藏域）
+
+        <div id="reportImages" hidden>加载报表中的图片（隐藏域）
             <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
             <div id="main" style="width: 600px;height:400px;"></div>
             <div id="myChart" :style="{width: '300px', height: '300px'}"></div>

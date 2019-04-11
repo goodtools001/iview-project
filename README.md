@@ -29,4 +29,7 @@ npm run build
 ##安装echart
 npm install echarts --save
  
+##安装vuex
+npm install vuex --save
+
 
