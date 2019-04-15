@@ -12,7 +12,7 @@
 
 <script>
     export default {
-        name: "report-button",
+        name: "report-generate-button",
         data() {
             return {
                 buttonSize: 'large'
@@ -41,7 +41,7 @@
                 });
             },
             postImage() {
-                    /*获得echart的实例*/
+                /*获得echart的实例*/
                 var myChart = this.$echarts.getInstanceByDom(document.getElementById('myChart'))
 
                 var imageName = "image2.png";
@@ -53,18 +53,25 @@
 
                 /*设置参数*/
                 var params = new URLSearchParams();
-                params.append("picInfo",image);
-                params.append("imageName",imageName);
+                params.append("picInfo", image);
+                params.append("imageName", imageName);
 
                 // 向后台发起请求保存图片到指定目录.
-                var url="http://localhost:9002/saveImage"
-                this.$http.post(url,params).then(res =>{
+                var url = "http://localhost:9002/saveImage"
+
+                var reportType = this.$store.state.paramMap.reportType;
+                console.log(" [ reportType = " + reportType + " ]")
+
+                var reportFormat = this.$store.state.paramMap.reportFormat;
+                console.log(" [ reportFomate = " + reportFormat + " ]")
+
+                var timeRange = this.$store.state.paramMap.timeRange;
+                console.log(" [ timeRange = " + timeRange + " ]")
+
+                /*this.$http.post(url,params).then(res =>{
                     console.log("wbliu   = "+JSON.stringify(res.data));
                     return "请求成功！"
-                });
-
-
-
+                });*/
 
 
             },//end postImage

@@ -1,27 +1,24 @@
 import Vue from 'vue';
 import iView from 'iview';
 import VueRouter from 'vue-router';
+import  Vuex from 'vuex'
 import Routers from './router';
 import Util from './libs/util';
 import App from './app.vue';
 import 'iview/dist/styles/iview.css';
 import  axios from '../node_modules/axios/dist/axios.min';
 import echarts from '../node_modules/echarts/dist/echarts.min'
-import store from './store'//引入store
+//import store from './store'//引入store
+import store from './vuex/store'//引入store
 
-/*new Vue({
-    el: '#app',
-    router,
-    store,//使用store
-    template: '<App/>',
-    components: { App }
-})*/
 
 Vue.use(VueRouter);
 Vue.use(iView);
+Vue.use(Vuex)
 Vue.prototype.$http = axios;
 Vue.prototype.$echarts = echarts;
 Vue.prototype.$store = store;
+
 // 路由配置
 const RouterConfig = {
     mode: 'history',

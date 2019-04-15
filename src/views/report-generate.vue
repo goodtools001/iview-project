@@ -41,13 +41,15 @@
                 <Card>
                     <div style="height: 900px">
                         <!--报表类型-->
-                        <report-select></report-select>
+                        <report-type></report-type>
                         <!--报表时间-->
                         <report-time></report-time>
                         <!--报表格式-->
-                        <report-radio></report-radio>
-                        <!--按钮-->
-                        <report-button></report-button>
+                        <report-format></report-format>
+
+                        <!--提交按钮-->
+                        <report-generate-button></report-generate-button>
+
                         <!--&lt;!&ndash;报表中的图片&ndash;&gt;
                         <report-image></report-image>-->
                     </div>
@@ -58,15 +60,16 @@
 </template>
 
 <script>
-    import ReportSelect from "./component/report-select";
+
+
+    import ReportType from "./component/report-type";
+    import ReportFormat from "./component/report-format";
+    import ReportGenerateButton from "./component/report-generate-button";
     import ReportTime from "./component/report-time";
-    import ReportRadio from "./component/report-radio";
-    import ReportButton from "./component/report-button";
-    import ReportImage from "./component/report-image";
 
     export default {
         name: "report-generate",
-        components: {ReportImage, ReportButton, ReportRadio, ReportTime, ReportSelect}
+        components: {ReportTime, ReportGenerateButton, ReportFormat, ReportType},
     }
 </script>
 
