@@ -1,6 +1,12 @@
 <template>
     <div>
         <Button :size="buttonSize" type="primary" @click="postImage">生成报表</Button>
+
+        <!--<div id="reportImages" hidden>加载报表中的图片（隐藏域）
+            &lt;!&ndash; 为 ECharts 准备一个具备大小（宽高）的 DOM &ndash;&gt;
+            <div id="main" style="width: 600px;height:400px;"></div>
+            <div id="myChart" :style="{width: '300px', height: '300px'}"></div>
+        </div>-->
     </div>
 </template>
 
@@ -12,11 +18,39 @@
                 buttonSize: 'large'
             }
         },
+       /* mounted() {
+            this.drawLine();
+        },*/
         methods: {
+            /*drawLine() {
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = this.$echarts.init(document.getElementById('myChart'))
+                // 绘制图表
+                myChart.setOption({
+                    title: {text: '在Vue中使用echarts'},
+                    tooltip: {},
+                    xAxis: {
+                        data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+                    },
+                    yAxis: {},
+                    series: [{
+                        name: '销量',
+                        type: 'bar',
+                        data: [5, 20, 36, 10, 10, 20]
+                    }]
+                });
+            },*/
             postImage() {
+                /*获得echart的实例*/
+                var myChart = this.$echarts.getInstanceByDom(document.getElementById('myChart'))
 
-                var image ="图片已经删除！";
-                var imageName = "位置图片名称.png";
+                var imageName = "image2.png";
+                /*获得图片的base64编码*/
+                var image = myChart.getDataURL({
+                    pixelRatio: 2, // double pixel
+                    backgroundColor: '#fff'
+                });
+
                 /*设置参数*/
                 var params = new URLSearchParams();
                 params.append("picInfo", image);
@@ -119,7 +153,6 @@
 div{
     display: block;
     float: left;
-    margin-top: 30px;
 }
 
 </style>
