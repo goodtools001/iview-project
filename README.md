@@ -32,4 +32,7 @@ npm install echarts --save
 ##安装vuex
 npm install vuex --save
 
+##安装babel-polyfill，es6浏览器兼容插件
+npm install --save babel-polyfill
+
 

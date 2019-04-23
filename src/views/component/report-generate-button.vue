@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Button :size="buttonSize" type="primary" @click="postImage">生成报表</Button>
+        <Button :size="buttonSize" type="primary" @click="reportGenerate">生成报表</Button>
     </div>
 </template>
 
@@ -13,34 +13,41 @@
             }
         },
         methods: {
-            postImage() {
+            reportGenerate() {
+                var url = "reportManage/reportGenerate"
 
-                var image ="图片已经删除！";
-                var imageName = "位置图片名称.png";
                 /*设置参数*/
-                var params = new URLSearchParams();
-                params.append("picInfo", image);
-                params.append("imageName", imageName);
-
-                // 向后台发起请求保存图片到指定目录.
-                var url = "http://localhost:9002/saveImage"
+                var params = {};
 
                 var reportType = this.$store.state.paramMap.reportType;
                 console.log(" [ reportType = " + reportType + " ]")
+                params.reportType = reportType;
+
 
                 var reportFormat = this.$store.state.paramMap.reportFormat;
-                console.log(" [ reportFomate = " + reportFormat + " ]")
+                console.log(" [ reportFormat = " + reportFormat + " ]")
+                params.reportFormat = reportFormat;
+
 
                 var timeRange = this.$store.state.paramMap.timeRange;
                 console.log(" [ timeRange = " + timeRange + " ]")
+                params.timeRange = timeRange;
 
-                /*this.$http.post(url,params).then(res =>{
-                    console.log("wbliu   = "+JSON.stringify(res.data));
-                    return "请求成功！"
-                });*/
+                this.$ajax({
+                    method: 'post',
+                    url: url,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    dataType: 'json',
+                    data: params
+                }).then(function (response) {
+                    console.log(response);
+                }).catch(function (error) {
+                    console.log(error);
+                })
 
-
-            },//end postImage
+            },//end reportGenerate
 
         },
 
@@ -116,10 +123,10 @@
 </script>
 
 <style scoped>
-div{
-    display: block;
-    float: left;
-    margin-top: 30px;
-}
+    div {
+        display: block;
+        float: left;
+        margin-top: 30px;
+    }
 
 </style>

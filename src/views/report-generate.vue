@@ -28,12 +28,12 @@
 </script>
 
 <style scoped>
+
    .reportPanel{
        width: 400px;
        height: 400px;
        padding-left: 20px;
        padding-top: 20px;
-
 
    }
 

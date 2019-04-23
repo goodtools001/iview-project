@@ -8,14 +8,21 @@ import App from './app.vue';
 import 'iview/dist/styles/iview.css';
 import  axios from '../node_modules/axios/dist/axios.min';
 import echarts from '../node_modules/echarts/dist/echarts.min'
-//import store from './store'//引入store
 import store from './vuex/store'//引入store
+import babelPolyfill  from  '../node_modules/babel-polyfill';
 
 
 Vue.use(VueRouter);
 Vue.use(iView);
-Vue.use(Vuex)
-Vue.prototype.$http = axios;
+Vue.use(Vuex);
+Vue.use(babelPolyfill);
+
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+//axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
+axios.defaults.baseURL = 'http://localhost:9002/';
+
+Vue.prototype.$ajax = axios;
+//Vue.prototype.$http = axios;
 Vue.prototype.$echarts = echarts;
 Vue.prototype.$store = store;
 

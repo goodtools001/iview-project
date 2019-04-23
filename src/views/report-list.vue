@@ -1,18 +1,26 @@
 <template>
-    <div id ="reportList">
-        <h2>这里是报表查看页面</h2>
-        <report-panel></report-panel>
+    <div id="reportList" class="reportListStyle">
+        <div><h2>这里是报表查看页面</h2></div>
+        <report-table></report-table>
     </div>
 </template>
 
 <script>
-    import ReportPanel from "./component/report-panel";
+    import ReportTable from "./component/report-table";
+
     export default {
         name: "report-list",
-        components: {ReportPanel}
+        components: {ReportTable},
     }
 </script>
 
 <style scoped>
+    .reportListStyle{
+        text-align: center;
+        width: 930px;
+        height: 900px;
+        padding-left: 300px;
+        margin-top: 20px;
+    }
 
 </style>

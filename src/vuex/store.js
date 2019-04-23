@@ -6,11 +6,12 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         count: 0,
+        /*生成报告时传参*/
         paramMap:{
             "reportType":"",
             "timeRange":"",
-            "reportFormat":""
-        }
+            "reportFormat":"",
+        },
     },
     mutations:{
      add(){

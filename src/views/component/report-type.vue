@@ -2,8 +2,9 @@
     <div class="typeStyle">
         <div><h2>报表类型:</h2></div>
         <div class="selectStyle">
-            <Select id="select" v-model="myValue" filterable>
-                <Option v-for="item in reportList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            <Select id="select" v-model="myValue" placeholder="请选择报告类型" filterable>
+                <Option v-for="item in reportList" :value="item.reportName" :key="item.id">{{ item.reportName }}
+                </Option>
             </Select>
             <span hidden>{{reportType}}</span>
         </div>
@@ -26,31 +27,51 @@
                 return this.$store.state.paramMap.reportType = this.myValue;
             }
         },
+        mounted() {
+
+            this.myValue = "XXX 安全周报"; //默认选中第一个值；
+            /*测试使用*/
+            //this.reportList = reportListTemp;
+
+            var reportTypeUrl = "reportManage/reportTypes";
+
+            this.$ajax({
+                method: 'get',
+                url: reportTypeUrl
+            }).then(response => {
+                this.reportList = response.data;
+                this.myValue = this.reportList[0].reportName;
+            }).catch(function (error) {
+                console.log(error);
+            })
+
+        },
         created() { //在组件创建的时候，初始化选项
             var reportListTemp = [{
                 value: 'XXX安全周报',
-                label: 'XXX安全周报'
+                label: 'XXX安全周报',
+                reportName: 'XXX安全周报000'
             },
                 {
                     value: 'XXX安全月报',
-                    label: 'XXX安全月报'
+                    label: 'XXX安全月报',
+                    reportName: 'XXX安全周报001'
                 }];
-
-            this.myValue = "XXX安全周报"; //默认选中第一个值；
-            this.reportList = reportListTemp;
         }
 
     }
 </script>
 
 <style scoped>
-    div{float: left}
+    div {
+        float: left
+    }
 
-    .typeStyle{
+    .typeStyle {
         margin-top: 30px;
     }
 
-    .selectStyle{
+    .selectStyle {
         position: relative;
         padding-left: 15px;
         width: 245px;
