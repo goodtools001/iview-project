@@ -21,8 +21,7 @@
         },
         methods: {
             downloadReport(index) {
-
-                var reportId =  this.data2[index].num;
+                var reportId = this.data2[index].num;
                 var reportName = this.data2[index].reportName;
                 var reportType = this.data2[index].reportType;
                 var createDate = this.data2[index].createDate;
@@ -34,44 +33,82 @@
                     onOk: () => {
                         this.$Message.info('开始下载..');
                         console.log("reportId = " + reportId);
-
-                        var reportTypeUrl = "reportManage/reportDownload?reportId=" + reportId;
-                        this.$ajax({
-                            method: 'get',
-                            url: reportTypeUrl
-                        }).then(response => {
-                            console.log("resport = "+JSON.stringify(response));
-
-                            if (response.status == 200) {
-                                console.log("下载成功!")
-                            }else{
-                                console.log("下载失败!")
-                            }
-
-
-                        }).catch(function (error) {
-                            console.log(error);
-                        })
-
-
+                        this.download(this.data2[index]);
                     },
                     onCancel: () => {
                         this.$Message.info('取消下载');
                     }
-
                 })
-
-
-                /*
-            this.$Modal.info({
-                    title: '下载报告的信息！',
-                    content: `报告名称：${this.data2[index].reportName}<br>报告格式：${this.data2[index].reportType}<br>创建时间：${this.data2[index].createDate}`,
-                })
-*/
-
 
             },
+            // 下载文件
+            download(row) {
+                console.log("download 开始 执行")
+                var reportTypeUrl = "reportManage/reportDownload?reportId=" + row.num;
 
+                /*var paramMap = {};
+                paramMap.reportId = row.num;
+*/
+
+                this.$ajax({
+                    method: 'get',
+                    url: reportTypeUrl,
+                    /*headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    dataType: 'json',
+                    data: paramMap,*/
+                    responseType: 'blob'
+                }).then(response => {
+
+                    if (response.status == 200) {
+                        // let fileName = row.reportName + "." + row.reportType.toLowerCase();
+                        let url = response.config.url;
+                        //let url = window.URL.createObjectURL(new Blob([data]))
+                        let link = document.createElement('a')
+                        link.style.display = 'none'
+                        link.href = url + "&requestNum=2"
+
+                        // 获取文件名
+                        // download 属性定义了下载链接的地址而不是跳转路径
+                        //link.setAttribute('download', fileName)
+                        document.body.appendChild(link);
+                        link.click();
+                        console.log("下载成功!")
+
+
+                        //一定时间之后，刷新表格
+                        setTimeout(() => {
+                            /*更新表格数据*/
+                            this.refreshTabele();
+
+                            console.log("表格刷新了")
+                        }, 3000);
+
+
+                    } else {
+                        console.log("下载失败!")
+                    }
+
+                }).catch(function (error) {
+                    console.log(error);
+                })
+            },
+            /*更新表格数据*/
+            refreshTabele() {
+                var reportListUrl = "reportManage/reportList";
+                this.$ajax({
+                    method: 'get',
+                    url: reportListUrl
+                }).then(response => {
+                    this.data2 = response.data;
+                    console.log("data2 = " + this.data2[0].reportNum);
+
+                }).catch(function (error) {
+                    console.log(error);
+                })
+
+            }
         },
         created() {
             var columns1Temp = [
@@ -286,7 +323,7 @@
             //this.data2 = data2Temp;
         },
         mounted() {
-            var reportListUrl = "reportManage/reportList";
+            /*var reportListUrl = "reportManage/reportList";
             this.$ajax({
                 method: 'get',
                 url: reportListUrl
@@ -294,11 +331,11 @@
                 this.data2 = response.data;
                 console.log("data2 = " + this.data2[0].reportNum);
 
-
             }).catch(function (error) {
                 console.log(error);
-            })
+            })*/
 
+            this.refreshTabele();
 
         }
     }
